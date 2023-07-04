@@ -1,0 +1,95 @@
+{
+  "project_info": {
+    "project_number": "712564276091",
+    "project_id": "schedula-99f40",
+    "storage_bucket": "schedula-99f40.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712564276091:android:a17ca20a8b8b2aecb01bde",
+        "android_client_info": {
+          "package_name": "com.schedula"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712564276091-o0b58slk213dm5f8h99r2d91hb6mmeo1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCukBpNYvuZt3e2XUkts7zhKhBueOauCUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712564276091-o0b58slk213dm5f8h99r2d91hb6mmeo1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },{
+      "client_info": {
+        "mobilesdk_app_id": "1:712564276091:android:a17ca20a8b8b2aecb01bde",
+        "android_client_info": {
+          "package_name": "com.schedula.qa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712564276091-o0b58slk213dm5f8h99r2d91hb6mmeo1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCukBpNYvuZt3e2XUkts7zhKhBueOauCUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712564276091-o0b58slk213dm5f8h99r2d91hb6mmeo1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },{
+      "client_info": {
+        "mobilesdk_app_id": "1:712564276091:android:a17ca20a8b8b2aecb01bde",
+        "android_client_info": {
+          "package_name": "com.schedula.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712564276091-o0b58slk213dm5f8h99r2d91hb6mmeo1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCukBpNYvuZt3e2XUkts7zhKhBueOauCUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712564276091-o0b58slk213dm5f8h99r2d91hb6mmeo1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
