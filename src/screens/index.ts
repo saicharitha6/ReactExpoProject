@@ -5,4 +5,3 @@ export { default as OtpScreen } from './otp-screen';
 export { default as HomeScreen } from './home-screen';
 export { default as DoctorClinic } from './doctorclinic-screen';
 export { default as AppointmentScreen } from './appointment-screen';
-export { default as SlotScreen } from './slot-screen';

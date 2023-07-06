@@ -4,18 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { HomeScreen,DoctorClinic,AppointmentScreen,SlotScreen,} from '../screens';
-// import HomeScreen from '../screeens/HomeScreen';
-// import DoctorsScreen from '../screeens/DoctorsScreen';
-// import DoctorClinic from '../screeens/DoctorClinic';
-// import AppointmentScreen from '../screeens/AppointmentScreen';
-// import CategoryScreen from '../screeens/CategoryScreen';
-// import SlotScreen from '../screeens/SlotScreen';
-// import VideoSlot from '../screeens/VideoSlot';
+import { HomeScreen,DoctorClinic,AppointmentScreen} from '../screens';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CustomSidebarMenu from '../components/constants/customside-menu';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
-// import CustomSidebarMenu from '../components/CustomSidebarMenu';
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -37,7 +30,7 @@ const DrawerNavigator: React.FC = () => {
           title: "Find your doctors",
           drawerLabel: "Home",
           drawerIcon: ({ tintColor }) => (
-            <FontAwesome name="home" color='#000' size={22} />
+            <FontAwesome name="home" size={22} color='#000'/>
           ),
           drawerLabelStyle: {
             fontSize: 18,
@@ -50,10 +43,10 @@ const DrawerNavigator: React.FC = () => {
         name="AppointmentScreen"
         component={AppointmentScreen}
         options={{
-          title: "My appointments",
-          drawerLabel: "My appointments",
+          title: "Appointments",
+          drawerLabel: "My Appointments",
           drawerIcon: ({ tintColor }) => (
-            <FontAwesome name="book" color='#000' size={22} />
+            <FontAwesome name="book" size={22} color='#000'/>
           ),
           drawerLabelStyle: {
             fontSize: 16,
@@ -74,7 +67,7 @@ const MainTabNavigator: React.FC = () => {
           let iconName;
           if (route.name == 'Home') {
             iconName = 'ios-home';
-          } else if (route.name == 'MyApt') {
+          } else if (route.name == 'Appointment') {
             iconName = 'ios-calendar';
           }
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -90,11 +83,33 @@ const MainTabNavigator: React.FC = () => {
       })}
     >
       <Tab.Screen name='Home' component={DrawerNavigator} options={{ headerShown: false }} />
-      <Tab.Screen name='MyApt' component={AppointmentScreen} options={{ headerShown: false }} />
+      <Tab.Screen name='Appointment' component={AppointmentStackNavigator} options={{ headerShown: false }} />
     </Tab.Navigator>
   )
 }
-
+const AppointmentStackNavigator: React.FC = () => {
+  return (
+      <Stack.Navigator
+        screenOptions={{
+          gestureEnabled: true,
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 20,
+          },
+          headerStyle: {
+            backgroundColor: '#08a29e'
+          },
+          headerTintColor: '#333333',
+        }}
+        initialRouteName="AppointmentScreen"
+      >
+        <Stack.Screen name="AppointmentScreen" component={AppointmentScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="DoctorClinic" component={DoctorClinic} options={{ title: "" }} />
+      </Stack.Navigator>
+  );
+}
 const MainStackNavigator: React.FC = () => {
   return (
       <Stack.Navigator
@@ -115,8 +130,6 @@ const MainStackNavigator: React.FC = () => {
       >
         <Stack.Screen name="HomeScreen" component={MainTabNavigator} options={{ headerShown: false }} />
         <Stack.Screen name="DoctorClinic" component={DoctorClinic} options={{ title: "" }} />
-        <Stack.Screen name="Slot" component={SlotScreen} options={{ title: "" }} />
-        {/* <Stack.Screen name="Video" component={VideoSlot} options={{ title: "" }} /> */}
       </Stack.Navigator>
   );
 }

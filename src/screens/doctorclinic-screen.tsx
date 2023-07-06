@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, ActivityIndicator, Pressable, FlatList, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, ActivityIndicator, Pressable, FlatList, TouchableOpacity, ScrollView,Dimensions } from 'react-native';
 import { url, newUrl } from '../services/api';
 import axios from 'axios';
 import moment from 'moment';
@@ -190,18 +190,18 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
       animationType: "slide-in",
       successColor: "#03AC13",
       swipeEnabled: true,
-      normalColor: "#F1F7F7",
-      textStyle: { fontSize: 18, color: '#424242' }
+      normalColor: "#fff",
+      textStyle: { fontSize: 18, color: '#424242' },
+      style:{borderWidth:1,borderColor:'#000'}
     });
   }
   const futuredaybooking = async () => {
+    if(slotid){
     var originalDate = ntoday;
     var dateComponents = originalDate.split('-');
     var rearrangedDate = dateComponents[2] + '-' + dateComponents[1] + '-' + dateComponents[0];
     const tocken = AsyncStorage.getItem('token')
     await AsyncStorage.getItem('phoneNumber').then((phoneNumber) => {
-
-      if (slotid) {
         setIsLoading(true)
         const url = newUrl + 'api/v1/appointment/make';
         const headers = {
@@ -232,10 +232,11 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
             alert(error.message);
             setIsLoading(false)
           });
-      } else {
-        alert("Please select slot time.");
-      }
+      
     })
+  }else{
+    showToast("Kindly choose a time slot for your appointment.")
+  }
   }
   const downButtonHandler = () => {
     listViewRef?.scrollToEnd({ animated: true });
@@ -248,6 +249,7 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
     )
   } else {
     return (
+      <View style={{flex:1}}>
       <ScrollView ref={(ref) => {
         listViewRef = ref;
       }} style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -306,7 +308,7 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
           </View>
         </View>
         {visit == "Clinic Visit" ?
-          <View style={{ padding: 10, height: 700}}>
+          <View style={{ padding: 10}}>
             <View style={{ height: 60, zIndex: 9999 }}>
               <DropDownPicker
                 placeholder='Select the clinic location'
@@ -338,6 +340,7 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
                     data={datedata}
                     renderItem={renderDateItem}
                     horizontal
+                    showsHorizontalScrollIndicator={false}
                   />
                 </View>
                 <View style={{ justifyContent: 'center', alignItems: 'center', height: 50 }}>
@@ -348,7 +351,7 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
             }
             <View style={{ height: 400 }}>
               
-              {ntoday.length > 0 ?
+              {ntoday.length > 0  ?
                 slots.length != 0 ?
                   <View style={{ height: '90%' }}>
                     {
@@ -377,7 +380,6 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
                                         top: 5,
                                         padding: 3,
                                         margin: 3,
-
                                       } : {
                                         alignItems: 'center',
                                         justifyContent: 'center',
@@ -391,7 +393,7 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
                                         padding: 3,
                                         margin: 3,
                                       }}>
-                                      <Pressable disabled={moment(currentTime, 'hh:mm A').format('HH:mm') >= moment(item.from, 'hh:mm A').format('HH:mm') && moment(currentTime, 'hh:mm A').format('HH:mm') >= moment(item.to, 'hh:mm A').format('hh:mm A') ? true : false} onPress={() => (setSlotid(""), setSessionId(val?.id),downButtonHandler())}>
+                                      <Pressable disabled={moment(currentTime, 'hh:mm A').format('HH:mm') >= moment(item.from, 'hh:mm A').format('HH:mm') && moment(currentTime, 'hh:mm A').format('HH:mm') >= moment(item.to, 'hh:mm A').format('hh:mm A') ? true : false} onPress={() => (setSlotid(""), setSessionId(val?.id))}>
                                         <Text style={{ fontWeight: 'bold', fontSize: 10, textAlign: 'center', justifyContent: 'center', color: 'white' }}>
                                           {moment(item.from, 'h:mm a').format('h:mm a')} - {moment(item.to, 'h:mm a').format('h:mm a')}
                                         </Text>
@@ -438,7 +440,7 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
                                             false
                                         }
 
-                                        onPress={() => (setSlotid(item.id), setSessionId(val?.id),downButtonHandler())}
+                                        onPress={() => (setSlotid(item.id), setSessionId(val?.id))}
                                       >
                                         <Text style={{ fontWeight: 'bold', fontSize: 10, textAlign: 'center', justifyContent: 'center', color: 'black' }}>
                                           {/* {item.from} -  {item.to}a */}
@@ -467,30 +469,33 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
               }
 
             </View>
-          {ntoday.length >0 &&  
-        <View style={{ height: 30, justifyContent: 'center', alignItems: 'center'}}>
-          <TouchableOpacity style={
-            slotid ?
-              { height: 40, width: 200, backgroundColor: "#08a29e", justifyContent: 'center', alignItems: 'center', borderRadius: 5 }
-              : { height: 40, width: 200, backgroundColor: '#BDEDFF', justifyContent: 'center', alignItems: 'center', borderRadius: 5 }
-
-          }
-            onPress={() => slotid ? futuredaybooking() : null}
-          >
-            <Text style={
-              { fontSize: 18, color: "#fff" }}>Book Appointment</Text>
-          </TouchableOpacity>
-        </View>
-  }
+          
           </View>
           : 
           visit == "Online" ?
+          onlinesession?.length>0 ?
           <View style={{ padding: 10, height: 500}}>
              <VideoSlot sessiondata={onlinesession}/>
-          </View>
+          </View> :
+          <Text style={{color:'#000',fontSize:16,textAlign:'center'}}>Online consultation not available.</Text>
           : null}
-       
+       {/* <View style={{paddingBottom:200}}></View> */}
       </ScrollView>
+      {ntoday.length >0 &&  visit == "Clinic Visit" &&
+      <View style={{position:"absolute",bottom:0 }}>
+        <View style={{ height: 55,zIndex:9999,width:"100%",justifyContent:'center',alignItems:'center'}}>
+          <TouchableOpacity style={
+              {  height: 60, width: Dimensions.get("screen").width, backgroundColor: "#08a29e", justifyContent: 'center', alignItems: 'center', borderRadius: 5 }
+          }
+            onPress={() =>  futuredaybooking()}
+          >
+            <Text style={
+              { fontSize: 18, color: "#fff",fontWeight:'bold' }}>Book Appointment</Text>
+          </TouchableOpacity>
+        </View>
+        </View>
+  }
+      </View>
     );
   }
 };

@@ -6,6 +6,7 @@ import moment from 'moment';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import crashlytics from '@react-native-firebase/crashlytics';
+import { useToast } from "react-native-toast-notifications";
 const VideoSlot = (props) => {
   const [datedata, setDateData] = useState<any[]>([]);
   const [ndatedata, setnDateData] = useState<any[]>([]);
@@ -16,6 +17,7 @@ const VideoSlot = (props) => {
   const [isloading, setIsLoading] = useState(false)
   const [slotid, setSlotid] = useState<string>('')
   const [sessionid, setSessionId] = useState<string>('')
+  const toast = useToast();
   useEffect(() => {
     var currentDate = new Date();
     var year = currentDate.getFullYear();
@@ -98,12 +100,26 @@ const VideoSlot = (props) => {
       setCurrentTime('00:00:00 am')
     }
   }
-
+  const showToast = (message) => {
+    // toast.show("Hello World");
+    toast.show(message, {
+      type: "normal",
+      placement: "center",
+      duration: 5000,
+      offset: 30,
+      animationType: "slide-in",
+      successColor: "#03AC13",
+      swipeEnabled: true,
+      normalColor: "#fff",
+      textStyle: { fontSize: 18, color: '#424242' },
+      style:{borderWidth:1,borderColor:'#000'}
+    });
+  }
  
   const  booking=async()=> {
+    if(slotid){
     const phoneNumber = await AsyncStorage.getItem('phoneNumber')
     setIsLoading(true)
-    if(slotid){
     await axios
       .post(
         url+'appointment/create',
@@ -128,18 +144,19 @@ const VideoSlot = (props) => {
         alert(response.data.message);
         }else{
           setIsLoading(false)
-          alert("Booking closed today,try tomorrow");
+          showToast("Booking closed today,try tomorrow");
         }
 
       })
       .catch((error) => {
         crashlytics().recordError(error)
         setIsLoading(false)
-        alert(error.toString());
+        showToast(error.toString());
       });
-    }else{
-      alert("Please select slot time.");
-    }
+   
+  }else{
+    showToast("Kindly choose a time slot for your appointment.")
+  }
   }
   if (isloading) {
     return (
@@ -203,19 +220,19 @@ const VideoSlot = (props) => {
         
                                   } : {
                                     alignItems: 'center',
-                                    justifyContent: 'center',
-                                    borderWidth: 3,
-                                    backgroundColor: '#3EA99F',
-                                    borderRadius: 10,
-                                    borderColor: '#fff',
-                                    width: 120,
-                                    height: 40,
-                                    top: 5,
-                                    padding: 3,
-                                    margin: 3,
+                                        justifyContent: 'center',
+                                        borderWidth: 1,
+                                        backgroundColor: '#08a29e',
+                                        borderColor: '#08a29e',
+                                        borderRadius: 5,
+                                        width: 100,
+                                        height: 40,
+                                        // top: 5,
+                                        padding: 3,
+                                        margin: 3,
                                   }}>
                                   <Pressable disabled={moment(currentTime, 'hh:mm A').format('HH:mm') >= moment(item.from, 'hh:mm A').format('HH:mm') && moment(currentTime, 'hh:mm A').format('HH:mm') >= moment(item.to, 'hh:mm A').format('hh:mm A') ? true : false} onPress={() => (setSlotid(""), setSessionId(val?.id))}>
-                                    <Text style={{ fontWeight: 'bold', fontSize: 10, textAlign: 'center', justifyContent: 'center', color: 'white' }}>
+                                  <Text style={{ fontWeight: 'bold', fontSize: 10, textAlign: 'center', justifyContent: 'center', color: 'white' }}>
                                       {moment(item.from, 'h:mm a').format('h:mm a')} - {moment(item.to, 'h:mm a').format('h:mm a')}
                                     </Text>
                                   </Pressable>
@@ -228,27 +245,27 @@ const VideoSlot = (props) => {
                                   style={moment(currentTime, 'hh:mm A').format('HH:mm') >= moment(item.from, 'hh:mm A').format('HH:mm') && moment(currentTime, 'hh:mm A').format('HH:mm') >= moment(item.to, 'hh:mm A').format('HH:mm') ? {
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    borderWidth: 3,
-                                    backgroundColor: '#BDEDFF',
-                                    borderRadius: 10,
-                                    borderColor: '#fff',
-                                    width: 120,
+                                    borderWidth: 1,
+                                    backgroundColor: '#f5fafa',
+                                    borderColor: '#f5fafa',
+                                    borderRadius: 5,
+                                    width: 100,
                                     height: 40,
-                                    top: 5,
+                                    // top: 5,
                                     padding: 3,
                                     margin: 3,
                                   } : {
                                     alignItems: 'center',
-                                    justifyContent: 'center',
-                                    borderWidth: 3,
-                                    backgroundColor: '#48bdd7',
-                                    borderRadius: 10,
-                                    borderColor: '#fff',
-                                    width: 120,
-                                    height: 40,
-                                    top: 5,
-                                    padding: 3,
-                                    margin: 3,
+                                        justifyContent: 'center',
+                                        borderWidth: 1,
+                                        backgroundColor: '#fff',
+                                        borderColor: '#08a29e',
+                                        borderRadius: 5,
+                                        width: 100,
+                                        height: 40,
+                                        // top: 5,
+                                        padding: 3,
+                                        margin: 3,
                                   }}>
                                   <Pressable
                                     disabled=
@@ -263,7 +280,7 @@ const VideoSlot = (props) => {
 
                                     onPress={() => (setSlotid(item.id), setSessionId(val?.id))}
                                   >
-                                    <Text style={{ fontWeight: 'bold', fontSize: 10, textAlign: 'center', justifyContent: 'center', color: 'white' }}>
+                                     <Text style={{ fontWeight: 'bold', fontSize: 10, textAlign: 'center', justifyContent: 'center', color: 'black' }}>
                                       {/* {item.from} -  {item.to}a */}
                                       {moment(item.from, 'h:mm a').format('h:mm a')} - {moment(item.to, 'h:mm a').format('h:mm a')}
                                     </Text>
@@ -290,12 +307,12 @@ const VideoSlot = (props) => {
         </ScrollView>
         <View style={{ height: "10%" ,justifyContent:'center',alignItems:'center'}}>
         <TouchableOpacity style={
-             slotid?
+            
                 { height: 40, width: 200, backgroundColor: "#08a29e", justifyContent: 'center', alignItems: 'center', borderRadius: 5 }
-                :{ height: 40, width: 200,backgroundColor: '#BDEDFF', justifyContent: 'center', alignItems: 'center', borderRadius: 5 }
+               
                 
               }
-              onPress={() =>slotid ?booking():null}
+              onPress={() =>booking()}
             >
               <Text style={
                 { fontSize: 18, color: "#fff" }}>Book Appointment</Text>

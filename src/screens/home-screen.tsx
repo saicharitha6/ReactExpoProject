@@ -24,11 +24,13 @@ interface Doctor {
   name: string;
   specialisation: string;
   consultingLocations:any;
+  gender:any;
   item: {
     id: number;
     name: string;
     specialisation: string;
     consultingLocations:any;
+    gender:any;
   };
 }
 
@@ -86,7 +88,10 @@ const HomeScreen: React.FC<any> = ({ navigation }) => {
     return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
+          {item?.gender == "Female" ? 
+          <Image style={styles.logo} source={require('../theme/assets/images/femaledoctors.png')} />:
           <Image style={styles.logo} source={require('../theme/assets/images/doctors.png')} />
+          }
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.row}>Dr. {item.name}</Text>
@@ -108,7 +113,7 @@ const HomeScreen: React.FC<any> = ({ navigation }) => {
               { backgroundColor: pressed ? '#08a29e' : '#08a29e' },
             ]}
           >
-            <Text style={styles.buttonText}>Visit Clinic</Text>
+            <Text style={styles.buttonText}>Book Appointment</Text>
           </Pressable>
         </View>
       </View>
