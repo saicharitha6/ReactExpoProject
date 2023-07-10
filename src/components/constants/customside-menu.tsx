@@ -24,14 +24,14 @@ const CustomSidebarMenu: React.FC<any> = (props) => {
   const onBackPress = () => {
     Alert.alert(
       'Logout',
-      'Are you sure want to Logout?',
+      'Are you sure want to logout?',
       [
         {
-          text: 'No',
+          text: 'Cancel',
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        { text: 'Yes', onPress: () => logout() },
+        { text: 'Logout', onPress: () => logout() },
       ],
       { cancelable: false }
     );

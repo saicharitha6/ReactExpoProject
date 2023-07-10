@@ -89,7 +89,7 @@ const HomeScreen: React.FC<any> = ({ navigation }) => {
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           {item?.gender == "Female" ? 
-          <Image style={styles.logo} source={require('../theme/assets/images/femaledoctors.png')} />:
+          <Image style={styles.logo} source={require('../theme/assets/images/femaledoctor.png')} />:
           <Image style={styles.logo} source={require('../theme/assets/images/doctors.png')} />
           }
         </View>

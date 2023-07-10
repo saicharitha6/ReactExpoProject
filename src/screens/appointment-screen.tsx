@@ -60,11 +60,11 @@ const AppointmentDetails: React.FC<any> = ({ navigation }) => {
       'Are you sure want to cancel the appointment?',
       [
         {
-          text: 'No',
-          onPress: () => console.log('Cancel Pressed'),
+          text: 'Cancel',
+          onPress: () => setMenuId(""),
           style: 'cancel',
         },
-        { text: 'Yes', onPress: () => cancelAppointment(apptId) },
+        { text: 'Confirm Cancel', onPress: () => cancelAppointment(apptId) },
       ],
       { cancelable: false }
     );
@@ -177,7 +177,7 @@ const AppointmentDetails: React.FC<any> = ({ navigation }) => {
             <Text style={styles.dateText}>{item.date}</Text>
           </View>
           <View style={styles.infoRow}>
-            <Text style={styles.dateText}>Appointment Time - </Text>
+            <Text style={styles.dateText}>Reporting Time - </Text>
             <Text style={styles.reportingTimeText}>{item.reportingTime}</Text>
           </View>
           <View style={styles.infoRow}>
@@ -222,7 +222,7 @@ const AppointmentDetails: React.FC<any> = ({ navigation }) => {
             <Text style={styles.dateText}>{item.date}</Text>
           </View>
           <View style={styles.infoRow}>
-            <Text style={styles.dateText}>Appointment Time - </Text>
+            <Text style={styles.dateText}>Reporting Time - </Text>
             <Text style={styles.reportingTimeText}>{item.reportingTime}</Text>
           </View>
           <View style={styles.infoRow}>
@@ -286,7 +286,7 @@ const AppointmentDetails: React.FC<any> = ({ navigation }) => {
           </View>
         </View>
         {status == "Confirmed" &&
-          <View style={{ height: '80%', alignItems: 'center', top: 10 }}>
+          <View style={{ height: '80%', alignItems: 'center',justifyContent:'center', top: 10 }}>
             {data.length>0 ? 
             <FlatList
               data={data}

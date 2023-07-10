@@ -30,7 +30,8 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
   const [isloading, setIsLoading] = useState<boolean>(false);
   const [visit, setVisit] = useState<string>("Clinic Visit");
   const [isonline, setIsonline] = useState<boolean>(false);
-  const [onlinesession, setOnlineSession] = useState<SessionData[] | null>(null);
+  const [isoffline, setIsoffline] = useState<boolean>(false);
+  const [onlinesession, setOnlineSession] = useState<SessionData[] | null>([]);
   const [offlinesession, setOfflineSession] = useState<SessionData[]>([]);
   const [location, setLocation] = useState<any[]>([]);
   const [open, setOpen] = useState<boolean>(false);
@@ -46,7 +47,7 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
   const [sessionid, setSessionId] = useState<string>('')
   const toast = useToast();
   useEffect(() => {
-    fetchData();
+     fetchData();
   }, [])
   useEffect(() => {
     if (value) {
@@ -59,7 +60,6 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
     }
 
   }, [value, ntoday]);
-
   const fetchDateData = () => {
     var startDate = new Date();
     var today = new Date();
@@ -85,26 +85,20 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
     setIsLoading(true);
     try {
       const response = await axios.get(url + 'practitioner/' + route?.params?.id + '/sessions');
+      console.log(response.data.data,url + 'practitioner/' + route?.params?.id + '/sessions')
       setDocdata(response.data.data);
       let dropDownData = [];
       const online = response.data.data.consultantLocations?.map((val: Location) => {
         dropDownData.push({ value: val?.authAssignmentId, label: val?.name + ',' + val?.address });
         return val.sessions?.filter(value => value?.type === "Online Consultation");
       });
-      setLocation(dropDownData)
-
-      const offline = response.data.data.consultantLocations[0]?.sessions?.filter((val: SessionData) => {
-        return val?.type !== "Online Consultation";
-      });
-
       online?.map((val: SessionData[]) => {
         if (val.length > 0) {
           setOnlineSession(val);
           setIsonline(true);
         }
       });
-
-      setOfflineSession(offline);
+      setLocation(dropDownData)
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -112,6 +106,7 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
       alert(error.toString());
     }
   };
+  console.log(onlinesession,"on")
   const fetchSlotData = async () => {
     setIsLoading(true)
     const slotdate = ntoday;
@@ -132,10 +127,11 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
           },
         )
         .then((response) => {
-
-          setSlots(response.data.data)
+          const offline = response.data.data.filter((val: Location) => {
+            return val?.type != "Online Consultation"
+          });
+          setOfflineSession(offline)
           setIsLoading(false)
-          //alert(response)
         })
         .catch((error) => {
           crashlytics().recordError(error)
@@ -352,10 +348,10 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
             <View style={{ height: 400 }}>
               
               {ntoday.length > 0  ?
-                slots.length != 0 ?
+                 offlinesession?.length!=0 ?
                   <View style={{ height: '90%' }}>
                     {
-                      slots.map((val) => {
+                      offlinesession.map((val) => {
                         return (
                           val.type != "Online Consultation" &&
                           <View style={{ padding: 10 }}>
@@ -473,13 +469,12 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
           </View>
           : 
           visit == "Online" ?
-          onlinesession?.length>0 ?
+          onlinesession.length!=0?
           <View style={{ padding: 10, height: 500}}>
              <VideoSlot sessiondata={onlinesession}/>
           </View> :
           <Text style={{color:'#000',fontSize:16,textAlign:'center'}}>Online consultation not available.</Text>
           : null}
-       {/* <View style={{paddingBottom:200}}></View> */}
       </ScrollView>
       {ntoday.length >0 &&  visit == "Clinic Visit" &&
       <View style={{position:"absolute",bottom:0 }}>

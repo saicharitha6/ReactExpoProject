@@ -310,7 +310,6 @@ const VideoSlot = (props) => {
             
                 { height: 40, width: 200, backgroundColor: "#08a29e", justifyContent: 'center', alignItems: 'center', borderRadius: 5 }
                
-                
               }
               onPress={() =>booking()}
             >
