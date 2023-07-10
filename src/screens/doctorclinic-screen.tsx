@@ -85,7 +85,6 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
     setIsLoading(true);
     try {
       const response = await axios.get(url + 'practitioner/' + route?.params?.id + '/sessions');
-      console.log(response.data.data,url + 'practitioner/' + route?.params?.id + '/sessions')
       setDocdata(response.data.data);
       let dropDownData = [];
       const online = response.data.data.consultantLocations?.map((val: Location) => {
@@ -106,7 +105,6 @@ const DoctorClinic = ({ navigation, route }: { navigation: any; route: any }) =>
       alert(error.toString());
     }
   };
-  console.log(onlinesession,"on")
   const fetchSlotData = async () => {
     setIsLoading(true)
     const slotdate = ntoday;
