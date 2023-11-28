@@ -1,0 +1,107 @@
+[
+    {
+      "id": 1,
+      "name": "Dr. John Doe",
+      "specialization": "Cardiologist",
+      "star": "3.6",
+      "reviews": "",
+      "image": "doctorImage.jpg",
+      "service": "Heart Problems",
+      "hospital": "The Wiskon Hospital in New Delhi",
+      "qualification": "MBBs, Sydney college and Univerity",
+      "description": "Dr. John Doe is a board-certified cardiologist with 10+ years of experience in treating cardiovascular diseases.",
+      "availability":""
+    },
+    {
+      "id": 2,
+      "name": "Dr. Jane Smith",
+      "specialization": "Pediatrician",
+      "star": "4.5",
+      "reviews": "",
+      "image": "doctorImage.jpg",
+      "service": "Child Care",
+      "hospital": "The Wiskon Hospital in New Delhi",
+      "qualification": "MBBs, Sydney college and Univerity",
+      "description": "Dr. Jane Smith is a board-certified pediatrician with 10+ years of experience in treating child diseases.",
+      "availability":""
+    },
+    {
+      "id": 3,
+      "name": "Dr. Maicheal",
+      "specialization": "Dermatologist",
+      "star": "3.5",
+      "reviews": "",
+      "image": "",
+      "service": "Skin Allergy Recovery",
+      "hospital": "MBBs, Sydney college and Univerity",
+      "qualification": "MBBs, Sydney college and Univerity",
+      "description": "Dr. Maiecheal is a board-certified dermatologist with 10+ years of experience in treating skin diseases..",
+      "availability":""
+    },
+    {
+      "id": 4,
+      "name": "Dr.Davis",
+      "specialization": "Orthopedic Surgeon",
+      "star": "4.8",
+      "reviews": "",
+      "image": "",
+      "service": "Bone Theraphy",
+      "hospital": "The Wiskon Hospital in New Delhi",
+      "qualification": "MBBs, Sydney college and Univerity",
+      "description": "Dr. Davis is a board-certified orthopedic surgeon with 10+ years of experience in treating Bone diseases.",
+      "availability":""
+    },
+    {
+      "id": 5,
+      "name": "Dr. Andrew ",
+      "specialization": "Cardiologist",
+      "star": "2.0",
+      "reviews": "",
+      "image": "",
+      "service": "Heart Theraphy",
+      "hospital": "The Wiskon Hospital in New Delhi",
+      "qualification": "MBBs, Sydney college and Univerity",
+      "description": "Dr. Andrew is a board-certified cardiologist with 10+ years of experience in treating cardiovascular diseases.",
+      "availability":""
+    },
+    {
+      "id": 6,
+      "name": "Dr. Smith",
+      "specialization": "General Physician",
+      "star": "4.8",
+      "reviews": "",
+      "image": "",
+      "service": "General Fever and General CheckUps",
+      "hospital": "The Wiskon Hospital in New Delhi",
+      "qualification": "MBBs, Sydney college and Univerity",
+      "description": "Dr. Smith is a board-certified General Physician with 10+ years of experience in treating General diseases",
+      "availability":""
+    },
+    {
+      "id": 7,
+      "name": "Dr. Ram",
+      "specialization": "Neuro Surgeon",
+      "star": "3.5",
+      "reviews": "",
+      "image": "",
+      "service": "Brain Theraphy",
+      "hospital": "The Wiskon Hospital in New Delhi",
+      "qualification": "MBBs, Sydney college and Univerity",
+      "description": "Dr. ram is a board-certified NeuroSeargeon with 10+ years of experience in treating Brain diseases.",
+      "availability":""
+    },
+    {
+      "id": 8,
+      "name": "Dr. William ",
+      "specialization": "Heart Surgeon",
+      "star": "4.8",
+      "reviews": "",
+      "image": "",
+      "service": "Heart Problems",
+      "hospital": "The Wiskon Hospital in New Delhi",
+      "qualification": "MBBs, Sydney college and Univerity",
+      "description": "Dr. William is a board-certified cardiologist with 10+ years of experience in treating cardiovascular diseases.",
+      "availability":""
+    }
+  ]
+  
